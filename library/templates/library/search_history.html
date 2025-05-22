@@ -1,0 +1,96 @@
+{% extends "main/header.html" %}
+{% block content%}
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Your Search History
+
+         
+       </h1>
+
+     
+      </div>
+
+
+  
+
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+
+    <tr>
+    	
+      
+      <th scope="col">title</th>
+      <th scope="col">Date</th>     
+    
+       <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for searchedcontent in searchedcontent %}
+    <tr>
+    	 
+      <td scope="row">{{  searchedcontent.searchedinfo}}</td>
+      <td>{{  searchedcontent.datesearched}}</td>
+ 
+     
+    
+    
+
+      <td><div class="btn-group dropleft">
+  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Action
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">View</a>
+    
+  </div>
+</div></td>
+    </tr>
+   {%endfor%}
+  </tbody>
+</table>
+ <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+{% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page=1">First </a></li>
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page={{ page_obj.previous_page_number}}">Previous </a></li>
+      {% endif %}
+
+      {%  for num in page_obj.paginator.page_range  %}
+
+        {% if page_obj.number == num %}
+
+        <li class="page-item disabled">  <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+
+            <li class="page-item disabled"> <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+         {% endif %}
+
+        {% endfor%}
+
+  {% if page_obj.has_next %}
+     <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.next_page_number }}">Next </a></li>
+         <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.paginator.num_pages }}">Last </a></li>
+      {% endif %}
+      {% endif %}
+
+
+  
+  </ul>
+</nav>
+
+
+
+
+
+{%endblock content%}
+   
+
+
+
+    
+ 

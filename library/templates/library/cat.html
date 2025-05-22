@@ -1,0 +1,29 @@
+{% extends "main/header.html" %}
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<h1>category only</h1>
+
+{% block content %}
+
+
+{% for b in books_cat %}
+	
+	{{ b.title }}
+
+{% endfor %}
+
+
+	
+
+
+
+
+{% endblock %}
+
+</body>
+</html>

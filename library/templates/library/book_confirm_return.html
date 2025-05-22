@@ -1,0 +1,35 @@
+{% extends "main/header.html "%}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+{% block content %}
+
+<form method="POST" action=" {% url 'return-issued-book' returnissueidbook.id  %}">
+        {% csrf_token %}
+<h1>Book return </h1>
+
+
+<h2>{{ returnissueidbook.userid.first_name }} {{ returnissueidbook.userid.last_name }}</h2>
+ <h4> Is Returning {{ returnissueidbook.booksid.title }} Book</h4>
+
+  <h3 > Book id is:  #{{ returnissueidbook.booksid_id }} </h3>
+  <input type="text" name="bkid" hidden="hidden" value="{{ returnissueidbook.booksid_id }}">
+  <h3 >issue Id :  #{{ returnissueidbook.id }} </h3>
+
+    <h3>Are You Sure</h3>
+       <div class="form-group">
+  <button type="submit" class="btn btn-success">Yes Confirm</button>
+  <a href="{% url 'user-issued-books' returnissueidbook.userid_id %}" class="btn btn-warning">No Cancel</a>
+
+       </div>
+
+   </form>
+ 
+{% endblock %}
+</body>
+</html>

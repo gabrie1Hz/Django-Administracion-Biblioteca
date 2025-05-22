@@ -1,0 +1,13 @@
+<fieldset class="form-group">
+ <div class="col-xs-6">
+    <h4 name="mybook">You are Issuing    {{ issuebook.title }}  Book</h4>
+    <input type="text" name="bookid" hidden="hidden" value="{{ issuebook.id }}">
+    <input type="text" name="userid" hidden="hidden" value="{{  user.id }}">
+
+    <h3>Are You Sure</h3>
+       <div class="form-group">
+  <button type="submit" class="btn btn-success">Yes Confirm</button>
+  <a href="{% url 'book-detail' issuebook.id %}" class="btn btn-warning">No Cancel</a>
+
+       </div>
+       </fieldset>

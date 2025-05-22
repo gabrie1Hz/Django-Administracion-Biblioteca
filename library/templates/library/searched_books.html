@@ -1,0 +1,71 @@
+{% extends "main/header.html "%}
+{% block content%}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2 class="h2">Search Results</h2>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+
+
+      {%  if searchedbook %}
+      <h2 class="h2">You Search For....</h2>
+
+
+<div class="container">
+ 
+  <div class="row">
+    <div class="col">
+      
+      <h3>Title</h3>
+    </div>
+    <div class="col">
+      
+ <h3>Category</h3>
+    </div>
+    <div class="col">
+
+    <h3>Author</h3>
+    </div>
+  </div>
+</div>
+      {% for searched in searchedbook %}
+
+     
+
+
+<div class="container">
+ 
+  <div class="row">
+    <div class="col">
+      
+  
+      <a href="{% url 'book-detail' searched.id %}">{{ searched.title }}</a>
+    </div>
+    <div class="col">
+      
+     {{ searched.category }}
+    </div>
+    <div class="col">
+
+     {{ searched.author }}
+    </div>
+  </div>
+</div>
+
+      {% endfor %}
+      {%else %}
+
+       <h2 class="h2">No results found .</h2>
+       <h4><a href="{% url 'books' %}">Return to library</a></h4>
+      {% endif %}
+
+   {%endblock content%}

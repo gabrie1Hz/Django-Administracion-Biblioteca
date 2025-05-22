@@ -1,0 +1,71 @@
+{% extends "main/header.html "%}
+{% block content%}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2 class="h2">Search Results.</h2>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+
+
+      {%  if searcheduser %}
+      <h2 class="h2">You Search For....</h2>
+
+
+<div class="container">
+ 
+  <div class="row">
+    <div class="col">
+      
+      <h3>Title</h3>
+    </div>
+    <div class="col">
+      
+
+    </div>
+    <div class="col">
+
+
+    </div>
+  </div>
+</div>
+      {% for searched in searcheduser %}
+
+     
+
+
+<div class="container">
+ 
+  <div class="row">
+    <div class="col">
+      
+      
+      <a href="{% url 'user-issued-books' searched.userid_id %}">{{ searched.userid.last_name }}</a>{{ searched.userid.first_name }}
+    </div>
+    <div class="col">
+      
+    
+    </div>
+    <div class="col">
+
+  
+    </div>
+  </div>
+</div>
+
+      {% endfor %}
+      {%else %}
+
+       <h2 class="h2">No results found .</h2>
+       <h4><a href="{% url 'issued-books-view' %}">Return to Issued Books</a></h4>
+      {% endif %}
+
+   {%endblock content%}

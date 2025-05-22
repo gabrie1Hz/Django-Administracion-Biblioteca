@@ -1,0 +1,142 @@
+{% extends "main/header.html "%}
+{% block content%}
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    {% if userissuedname %}
+  
+        <h2 class="h2"> Books Issued To {{ userissuedname.first_name}}  {{  userissuedname.last_name}}
+   
+       </h2>
+ {% endif %}
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+        django
+          </button>
+        </div>
+        
+      </div>
+
+
+ 
+
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+
+    <tr>
+    	
+    <!--<th scope="col" >Book issue Id</th>-->
+    <th scope="col" >Book  Id</th>
+      
+    <th scope="col">Book Title</th>
+      <th scope="col">Issue Date</th>
+      <th scope="col">Due Date</th>
+       <th scope="col">Time left</th>
+   
+      <th scope="col">Status</th>
+      <th scope="col">returned</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+  	{% for mybooks in userissuedbooks   %}
+
+    <tr>
+    
+ 
+    <!--<td name ="id">  {{  mybooks.id}}</td>-->
+    <td name ="bkid"> {{  mybooks.booksid_id}}</td>
+    <td>{{  mybooks.booksid.title}}</td>
+    <td>{{  mybooks.issuedate}}</td>
+    <td>{{  mybooks.due_date}}</td>
+    <td>
+
+         {% if mybooks.due_date > today  %}
+         {{ today|timesince:mybooks.due_date}}
+          {% else %}
+ <!--mybooks.due_date|timesince:mybooks.issuedate -->
+          <p>OverDue</p> 
+            {%  endif %}
+    </td>
+
+    {% if mybooks.due_date > today  %}
+  <td style="background-color: #00FF55 ">  
+        <p>Not due Yet</p>     
+
+        </td>
+
+        {% else %}
+        <td style="background-color: #FF2A2A ">
+          <p>
+          Over due by {{ today|timeuntil:mybooks.due_date}} </p>
+          {%  endif %}
+        
+  
+
+      </td>
+
+
+      <td> 
+      
+          
+     
+        
+        
+          <a href="{% url 'returnbook' mybooks.id %}" class="btn btn-success">Return</a>
+
+
+       </td>
+    </tr>
+  
+   {%endfor%}
+  </tbody>
+</table>
+ <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+{% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page=1">First </a></li>
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page={{ page_obj.previous_page_number}}">Previous </a></li>
+      {% endif %}
+
+      {%  for num in page_obj.paginator.page_range  %}
+
+        {% if page_obj.number == num %}
+
+        <li class="page-item disabled">  <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+
+            <li class="page-item disabled"> <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+         {% endif %}
+
+        {% endfor%}
+
+  {% if page_obj.has_next %}
+     <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.next_page_number }}">Next </a></li>
+         <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.paginator.num_pages }}">Last </a></li>
+      {% endif %}
+      {% endif %}
+
+
+  
+  </ul>
+</nav>
+
+
+
+
+
+{%endblock content%}
+   
+
+
+
+    
+ 

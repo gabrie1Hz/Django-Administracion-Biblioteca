@@ -1,0 +1,41 @@
+{% extends "main/header.html "%}
+{% load crispy_forms_tags %}
+{% block content%}
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    {% if bookname %}
+        <h1 class="h2"> {{ bookname }}</h1>
+
+      {% endif %}
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+
+  
+
+    <div class="container">
+  <div class="row">
+    <div class="col">
+   <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+     {{ form|crispy }}
+   
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    </div>
+    <div class="col">
+    
+    </div>
+  </div>
+
+</div>
+
+  {% endblock %}    
